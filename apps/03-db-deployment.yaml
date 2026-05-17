@@ -30,7 +30,7 @@ spec:
           mountPath: /var/lib/postgresql/data
       volumes:
       - name: db-data
-         CastroVolumeClaim:
+        persistentVolumeClaim:
           claimName: postgres-pvc
 ---
 apiVersion: v1

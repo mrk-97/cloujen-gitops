@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-task-app
+  namespace: core-apps
+spec:
+  replicas: 2 # Scaled across your worker nodes for HA
+  selector:
+    matchLabels:
+      app: go-task-app
+  template:
+    metadata:
+      labels:
+        app: go-task-app
+    spec:
+      containers:
+      - name: web-app
+        image: gcr.io/google-samples/gb-frontend:v5 # High fidelity multi-tier demo frontend
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-task-svc
+  namespace: core-apps
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: go-task-app

@@ -9,6 +9,8 @@ metadata:
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: homelab-basic-auth
     nginx.ingress.kubernetes.io/auth-realm: "Cloujen Secure Zone"
+    # --- The SSL Trigger ---
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   rules:
   - host: home.cloujen.com # Your dashboard URL
@@ -21,3 +23,8 @@ spec:
             name: homepage-svc
             port:
               number: 3000
+# --- THE CERTIFICATE BINDING ---
+  tls:
+  - hosts:
+    - home.cloujen.com
+    secretName: homepage-tls-cert # Cert-manager will automatically create this secret

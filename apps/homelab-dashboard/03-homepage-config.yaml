@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-config
+  namespace: homelab
+data:
+  settings.yaml: |
+    title: Cloujen Secure Zone
+    background: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070"
+    theme: dark
+    layout:
+      Infrastructure:
+        style: row
+        columns: 3
+      Applications:
+        style: row
+        columns: 3
+
+  services.yaml: |
+    - Infrastructure:
+        - Argo CD:
+            href: https://argocd.cloujen.com
+            description: GitOps Control Plane
+            icon: argo
+        - Proxmox VE:
+            href: https://192.168.1.100:8006
+            description: Hypervisor
+            icon: proxmox
+            
+    - Applications:
+        - Multi-Tier Task App:
+            href: https://tasks.cloujen.com
+            description: Go + Postgres Production Workload
+            icon: go
+            
+    - Quick Links:
+        - GitHub Repo:
+            href: https://github.com/mrk-97/cloujen-gitops
+            icon: github
+        - Genshin Optimizer:
+            href: https://frzyc.github.io/genshin-optimizer/
+            description: Artifact & Build Calculator
+            icon: gaming

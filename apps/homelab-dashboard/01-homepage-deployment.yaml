@@ -1,3 +1,18 @@
+# 1. Create a 1GB persistent volume for your dashboard configurations
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: homepage-config-pvc
+  namespace: homelab
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 1Gi
+---
+# 2. Update the Deployment to mount the volume and whitelist the domain
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,7 +33,19 @@ spec:
         image: ghcr.io/gethomepage/homepage:latest
         ports:
         - containerPort: 3000
+        env:
+        # Whitelist the domains so Next.js accepts the traffic from NGINX
+        - name: HOMEPAGE_ALLOWED_HOSTS
+          value: "home.cloujen.com,start.cloujen.com"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+      volumes:
+      - name: config-volume
+        persistentVolumeClaim:
+          claimName: homepage-config-pvc
 ---
+# 3. The Service
 apiVersion: v1
 kind: Service
 metadata:

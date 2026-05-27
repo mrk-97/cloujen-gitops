@@ -34,16 +34,27 @@ spec:
         ports:
         - containerPort: 3000
         env:
-        # Whitelist the domains so Next.js accepts the traffic from NGINX
         - name: HOMEPAGE_ALLOWED_HOSTS
           value: "home.cloujen.com,start.cloujen.com"
         volumeMounts:
+        # Keep the existing PVC for other auto-generated config files
         - name: config-volume
           mountPath: /app/config
+        # Mount our specific GitOps files over top of the PVC
+        - name: gitops-config
+          mountPath: /app/config/settings.yaml
+          subPath: settings.yaml
+        - name: gitops-config
+          mountPath: /app/config/services.yaml
+          subPath: services.yaml
       volumes:
       - name: config-volume
         persistentVolumeClaim:
           claimName: homepage-config-pvc
+      # Define the new ConfigMap volume
+      - name: gitops-config
+        configMap:
+          name: homepage-config
 ---
 # 3. The Service
 apiVersion: v1

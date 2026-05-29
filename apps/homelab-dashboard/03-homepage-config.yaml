@@ -6,7 +6,7 @@ metadata:
 data:
   settings.yaml: |
     title: Cloujen Secure Zone
-    background: "https://images.unsplash.com/photo-1607706126834-a0fe502e9365?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    background: "https://images.unsplash.com/photo-1607706126834-a0fe502e9365"
     theme: dark
     layout:
       Infrastructure:
@@ -22,13 +22,21 @@ data:
             href: https://argocd.cloujen.com
             description: GitOps Control Plane
             icon: argo
+        - Pi-hole:
+            href: https://pihole.cloujen.com
+            description: Local DNS & Ad Blocker
+            icon: pihole
+            widget:
+              type: pihole
+              url: http://192.168.1.10
+              key: "YOUR_PIHOLE_API_TOKEN" # Don't forget to swap this with the real API key!
         - Proxmox VE:
             href: https://192.168.1.100:8006
             description: Hypervisor
             icon: proxmox
             
     - Applications:
-        - Multi-Tier Task App:
+        - PodInfo:
             href: https://tasks.cloujen.com
             description: Go + Postgres Production Workload
             icon: go
@@ -37,7 +45,3 @@ data:
         - GitHub Repo:
             href: https://github.com/mrk-97/cloujen-gitops
             icon: github
-        - Genshin Optimizer:
-            href: https://frzyc.github.io/genshin-optimizer/
-            description: Artifact & Build Calculator
-            icon: gaming

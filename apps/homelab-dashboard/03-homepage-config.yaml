@@ -23,7 +23,7 @@ data:
             description: GitOps Control Plane
             icon: argo
         - Pi-hole:
-            href: https://pihole.cloujen.com
+            href: https://pihole.cloujen.com/admin
             description: Local DNS & Ad Blocker
             icon: pihole
             widget:

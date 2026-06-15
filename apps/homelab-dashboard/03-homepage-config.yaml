@@ -6,7 +6,6 @@ metadata:
 data:
   settings.yaml: |
     title: Cloujen Secure Zone
-    background: "https://images.unsplash.com/photo-1607706126834-a0fe502e9365"
     theme: dark
     layout:
       Infrastructure:
